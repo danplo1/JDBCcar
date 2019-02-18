@@ -27,18 +27,11 @@ public class Config {
     }
 
     @Bean
-    public JdbcTemplate getJdbcTemplate(){
-    return  new JdbcTemplate(getDataSource());
-    }
-
-    @EventListener(ApplicationReadyEvent.class)
-    public void dbInit(){
-        String sql = "CREATE TABLE Car(car_id int, mark varchar(255), model varchar(255), color varchar (255));";
-        getJdbcTemplate().update(sql);
-
-
+    public JdbcTemplate getJdbcTemplate() {
+        return new JdbcTemplate(getDataSource());
     }
 
 
 
-}
+    }
+
