@@ -1,13 +1,11 @@
 package pl.danplo.jdbc_car;
 
 
-
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
-
 
 
 @Route
@@ -30,6 +28,14 @@ public class CarGui extends VerticalLayout {
         this.textFieldColor = new TextField("Color:");
         this.button = new Button("Dodaj");
         this.carDao = carDao;
+
+
+        //to validation
+        button.addClickListener(buttonClickEvent -> {
+            Car car = new Car(Long.parseLong(textFieldId.getValue()), textFieldMark.getValue(), textFieldModel.getValue(),
+                    textFieldColor.getValue());
+            carDao.save(car);
+        });
 
         add(textFieldId, textFieldMark, textFieldModel, textFieldColor, button);
     }
