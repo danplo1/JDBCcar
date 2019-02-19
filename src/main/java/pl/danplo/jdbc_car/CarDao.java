@@ -6,6 +6,9 @@ import org.springframework.context.event.EventListener;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Map;
+
 @Repository
 public class CarDao {
 
@@ -30,6 +33,12 @@ public class CarDao {
 
     }
 
+    public List<Map<String, Object>> showByMark(String mark) {
+        String sql = "SELECT * FROM Car WHERE mark LIKE ?";
+        return jdbcTemplate.queryForList(sql, new Object[]{mark});
+
+    }
+
     @EventListener(ApplicationReadyEvent.class)
     public void dbInit() {
         save(new Car(1, "Volvo", "V60", "Black Pearl"));
@@ -39,9 +48,8 @@ public class CarDao {
     }
 
 
-
 //    String sql = "CREATE TABLE Car(car_id int, mark varchar(255), model varchar(255), color varchar (255));";
 //     getJdbcTemplate().update(sql);
 
 
-    }
+}
